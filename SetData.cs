@@ -7,8 +7,8 @@ class SetData {
         string insertCategoriesQuery = @"
             IF NOT EXISTS (SELECT 1 FROM Categories WHERE nom_cat = 'Football')
                 INSERT INTO Categories (nom_cat) VALUES ('Football');
-            IF NOT EXISTS (SELECT 1 FROM Categories WHERE nom_cat = 'Athlétisme')
-                INSERT INTO Categories (nom_cat) VALUES ('Athlétisme');
+            IF NOT EXISTS (SELECT 1 FROM Categories WHERE nom_cat = 'Athletisme')
+                INSERT INTO Categories (nom_cat) VALUES ('Athletisme');
             IF NOT EXISTS (SELECT 1 FROM Categories WHERE nom_cat = 'Judo')
                 INSERT INTO Categories (nom_cat) VALUES ('Judo');
         ";
@@ -23,13 +23,13 @@ class SetData {
                 INSERT INTO Products (nom_pro, quantite_pro, prix_pro, fk_cat) 
                 VALUES ('Maillot de football', 30, 49.99, (SELECT pk_cat FROM Categories WHERE nom_cat = 'Football'));
 
-            -- Athlétisme products
+            -- Athletisme products
             IF NOT EXISTS (SELECT 1 FROM Products WHERE nom_pro = 'Chaussures de course')
                 INSERT INTO Products (nom_pro, quantite_pro, prix_pro, fk_cat) 
-                VALUES ('Chaussures de course', 15, 89.99, (SELECT pk_cat FROM Categories WHERE nom_cat = 'Athlétisme'));
-            IF NOT EXISTS (SELECT 1 FROM Products WHERE nom_pro = 'Chronomètre')
+                VALUES ('Chaussures de course', 15, 89.99, (SELECT pk_cat FROM Categories WHERE nom_cat = 'Athletisme'));
+            IF NOT EXISTS (SELECT 1 FROM Products WHERE nom_pro = 'Chronometre')
                 INSERT INTO Products (nom_pro, quantite_pro, prix_pro, fk_cat) 
-                VALUES ('Chronomètre', 10, 29.99, (SELECT pk_cat FROM Categories WHERE nom_cat = 'Athlétisme'));
+                VALUES ('Chronometre', 10, 29.99, (SELECT pk_cat FROM Categories WHERE nom_cat = 'Athletisme'));
 
             -- Judo products
             IF NOT EXISTS (SELECT 1 FROM Products WHERE nom_pro = 'Kimono')
@@ -47,16 +47,16 @@ class SetData {
                 // Insert categories
                 using (SqlCommand command = new SqlCommand(insertCategoriesQuery, connection)) {
                     command.ExecuteNonQuery();
-                    Console.WriteLine("Données insérées dans la table 'Categories'.");
+                    Console.WriteLine("Donnees inserees dans la table 'Categories'.");
                 }
 
                 // Insert products
                 using (SqlCommand command = new SqlCommand(insertProductsQuery, connection)) {
                     command.ExecuteNonQuery();
-                    Console.WriteLine("Données insérées dans la table 'Products'.");
+                    Console.WriteLine("Donnees inserees dans la table 'Products'.");
                 }
             } catch (Exception e) {
-                Console.WriteLine($"Erreur lors de l'insertion des données : {e.Message}");
+                Console.WriteLine($"Erreur lors de l'insertion des donnees : {e.Message}");
             }
         }
     }

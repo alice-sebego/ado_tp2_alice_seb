@@ -2,18 +2,16 @@
 using System.Data.SqlClient;
 
 class Init {
-    public static void Main(string[] args) {
+    public static void InitializeDatabase() {
         string connectionString = "Server=localhost;Database=master;Trusted_Connection=True;";
         string storeDbConnectionString = "Server=localhost;Database=StoreDB;Trusted_Connection=True;";
 
-        // Query to create database "StoreDB"
         string createDatabaseQuery = @"
             IF NOT EXISTS (SELECT name FROM sys.databases WHERE name = 'StoreDB')
             BEGIN
                 CREATE DATABASE StoreDB;
             END";
 
-        // Query to create table "Categories"
         string createCategoriesTableQuery = @"
             USE StoreDB;
             IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='Categories' AND xtype='U')
@@ -24,7 +22,6 @@ class Init {
                 );
             END";
 
-        // Query to create table "Products"
         string createProductsTableQuery = @"
             USE StoreDB;
             IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='Products' AND xtype='U')
@@ -62,7 +59,7 @@ class Init {
                 }
             } catch (Exception e) {
                 Console.WriteLine($"Erreur lors de l'initialisation de la base de données : {e.Message}");
-            } 
+            }
         }
 
         // Insert data into tables
